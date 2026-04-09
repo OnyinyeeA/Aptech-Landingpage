@@ -372,7 +372,45 @@ footer {
 
     <footer>
         <p>&copy; 2026 Aptech Computer Education. All Rights Reserved.</p>
+        <p>Or call 08109931057 </p>
     </footer>
+
+    <script>
+const form = document.getElementById("form");
+
+form.addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  // collect values
+  const name = document.getElementById("name").value;
+  const phone = document.getElementById("phone").value;
+  const email = document.getElementById("email").value;
+
+  // send to Formspree
+  const data = new FormData(form);
+
+  await fetch(form.action, {
+    method: form.method,
+    body: data,
+    headers: {
+      'Accept': 'application/json'
+    }
+  });
+
+  // then redirect to WhatsApp
+  const message = encodeURIComponent(
+`Hello, I want to register.
+
+Name: ${name}
+Phone: ${phone}
+Email: ${email}`
+  );
+
+  const whatsappNumber = "08109931057";
+
+  window.location.href = `https://wa.me/${whatsappNumber}?text=${message}`;
+});
+</script>
 
 </body>
 </html>
