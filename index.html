@@ -352,18 +352,18 @@ footer {
     <section id="apply" class="form-section">
         <div class="form-container">
             <h2 style="text-align: center; margin-bottom: 30px; color: #004488;">Start Your Tech Journey</h2>
-            <form action="https://formspree.io/f/YOUR_UNIQUE_ID" method="POST">
+            <form action="whatsappForm" method="POST">
                 <div class="form-group">
                     <label>Full Name</label>
-                    <input type="text" name="name" required placeholder="Enter your full name">
+                    <input type="text" id="name" required placeholder="Enter your full name">
                 </div>
                 <div class="form-group">
                     <label>Phone Number</label>
-                    <input type="tel" name="phone" required placeholder="e.g. 08012345678">
+                    <input type="tel" id="phone" required placeholder="e.g. 08012345678">
                 </div>
                 <div class="form-group">
                     <label>Email Address</label>
-                    <input type="email" name="email" required placeholder="Enter your best email">
+                    <input type="email" id="email" required placeholder="Enter your best email">
                 </div>
                 <button type="submit" class="submit-btn">Get Started Today</button>
             </form>
@@ -375,41 +375,38 @@ footer {
         <p>Or call 08109931057 </p>
     </footer>
 
-    <script>
-const form = document.getElementById("form");
-
-form.addEventListener("submit", async function(e) {
+<script>
+document.getElementById("whatsappForm").addEventListener("submit", function(e) {
   e.preventDefault();
 
-  // collect values
-  const name = document.getElementById("name").value;
-  const phone = document.getElementById("phone").value;
-  const email = document.getElementById("email").value;
+  const name = document.getElementById("name").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+  const email = document.getElementById("email").value.trim();
 
-  // send to Formspree
-  const data = new FormData(form);
+  const whatsappNumber = "2348109931057";
 
-  await fetch(form.action, {
-    method: form.method,
-    body: data,
-    headers: {
-      'Accept': 'application/json'
-    }
-  });
-
-  // then redirect to WhatsApp
   const message = encodeURIComponent(
-`Hello, I want to register.
+`🎓 New Enrollment Request
 
-Name: ${name}
-Phone: ${phone}
-Email: ${email}`
+ Name: ${name}
+ Phone: ${phone}
+ Email: ${email}
+
+Please kindly respond.`
   );
 
-  const whatsappNumber = "08109931057";
+  const btn = document.querySelector(".submit-btn");
 
-  window.location.href = `https://wa.me/${whatsappNumber}?text=${message}`;
+btn.innerText = "Sending...";
+btn.disabled = true;
+
+  const url = `https://wa.me/${whatsappNumber}?text=${message}`;
+
+  window.open(url, "_blank");
+  btn.innerText = "Submit";
+btn.disabled = false;
 });
+
 </script>
 
 </body>
